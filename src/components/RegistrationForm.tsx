@@ -8,8 +8,8 @@ import {
   RiEyeOffLine,
 } from "react-icons/ri";
 
-import logo from "../assets/logo.png"
-import bg from "../assets/promo-bg.png"
+import logo from "../assets/logo.png";
+import bg from "../assets/promo-bg.png";
 
 type FormValues = {
   email: string;
