@@ -8,8 +8,9 @@ import {
   RiEyeOffLine,
 } from "react-icons/ri";
 
-import logo from "../assets/logo.png";
-import bg from "../assets/promo-bg.png";
+import logo from "../../assets/logo.png";
+import bg from "../../assets/promo-bg.png";
+import Modal from "../Modal/Modal";
 
 type FormValues = {
   email: string;
@@ -21,7 +22,8 @@ type FormValues = {
 export const RegistrationForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
-
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [modalMessage, setModalMessage] = React.useState("");
   const hasMinLength = password.length >= 8;
   const hasLower = /[a-z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
@@ -33,11 +35,20 @@ export const RegistrationForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
     console.log("Дані форми:", data);
+    setModalMessage(
+      "Дякуємо за реєстрацію! Ми відправили листа на вашу пошту для підтвердження."
+    );
+    setIsModalOpen(true);
+    reset()
+    setPassword("");
   };
+
+
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -226,6 +237,14 @@ export const RegistrationForm = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          message={modalMessage}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };
